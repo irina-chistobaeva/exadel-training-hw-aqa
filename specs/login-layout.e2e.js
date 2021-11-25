@@ -1,5 +1,5 @@
 describe('Check app', function () {
-    it('Should login', async function () {
+    it('Should login successfully', async function () {
         await browser.url('https://viktor-silakov.github.io/course-sut');
         await $('#login').setValue('walker@jw.com');
         await $('#password').setValue('password');
@@ -7,7 +7,11 @@ describe('Check app', function () {
         await $('#spinner').waitForDisplayed({ reverse: true });
         const title = await browser.getTitle();
         if (title !== 'Report portal') {
-            throw new Error('You don`t login into system!!!')
+            throw new Error('You don`t login into system!!!');
+        }
+        const userName = await $('//*[@title="walker@jw.com"]').getText();
+        if (userName !== 'John Walker') {
+            throw new Error('You don`t login as correct user');
         }
     });
 
