@@ -96,47 +96,47 @@ describe('Check app', function () {
 
     it('Check 2st Manager', async function () {
         let userRow = await $('//*[text()="manager2@test.com"]/..');
-        let email = await userRow.$('(//div[@class="tabulator-cell"])[12]').getText();
+        let email = await userRow.$('(.//div[@class="tabulator-cell"])[1]').getText();
         if (email !== 'manager2@test.com') {
             throw new Error('Email is not correct');
         }
-        const role = await userRow.$('(//div[@class="tabulator-cell"])[13]').getText();
+        const role = await userRow.$('(.//div[@class="tabulator-cell"])[2]').getText();
         if (role !== 'manager') {
             throw new Error('Role is not correct');
         }
-        const address1 = await userRow.$('(//div[@class="tabulator-cell"])[14]').getText();
+        const address1 = await userRow.$('(.//div[@class="tabulator-cell"])[3]').getText();
         if (address1 !== '1234, Test2 str') {
             throw new Error('Address 1 is not correct');
         }
-        const address2 = await userRow.$('(//div[@class="tabulator-cell"])[15]').getText();
+        const address2 = await userRow.$('(.//div[@class="tabulator-cell"])[4]').getText();
         if (address2 !== '2-23') {
             throw new Error('Address 2 is not correct');
         }
-        const city = await userRow.$('(//div[@class="tabulator-cell"])[16]').getText();
+        const city = await userRow.$('(.//div[@class="tabulator-cell"])[5]').getText();
         if (city !== 'Ottawa') {
             throw new Error('City is not correct');
         }
-        const state = await userRow.$('(//div[@class="tabulator-cell"])[17]').getText();
+        const state = await userRow.$('(.//div[@class="tabulator-cell"])[6]').getText();
         if (state !== 'CA') {
             throw new Error('State is not correct');
         }
-        const zip = await userRow.$('(//div[@class="tabulator-cell"])[18]').getText();
+        const zip = await userRow.$('(.//div[@class="tabulator-cell"])[7]').getText();
         if (zip !== '66666') {
             throw new Error('Zip is not correct');
         }
-        const description = await userRow.$('(//div[@class="tabulator-cell"])[19]').getText();
+        const description = await userRow.$('(.//div[@class="tabulator-cell"])[8]').getText();
         if (description !== 'Lorem ipsum dolor sit amet, consectetur adipiscing elit') {
             throw new Error('Description is not correct');
         }
-        const demo = await userRow.$('(//div[@class="tabulator-cell"])[20]').getText();
+        const demo = await userRow.$('(.//div[@class="tabulator-cell"])[9]').getText();
         if (demo !== 'on') {
             throw new Error('Demo is not correct');
         }
-        const waitForSupervisor = await userRow.$('(//div[@class="tabulator-cell"])[21]').getText();
+        const waitForSupervisor = await userRow.$('(.//div[@class="tabulator-cell"])[10]').getText();
         if (waitForSupervisor !== 'on') {
             throw new Error('Wait for Supervisor is not correct');
         }
-        const ManagerType = await userRow.$('(//div[@class="tabulator-cell"])[22]').getText();
+        const ManagerType = await userRow.$('(.//div[@class="tabulator-cell"])[11]').getText();
         if (ManagerType !== 'country') {
             throw new Error('Manager type is not correct');
         }
