@@ -1,5 +1,5 @@
 describe('Check app', function () {
-    before(async function () {
+    before('Login', async function () {
         await browser.url('https://viktor-silakov.github.io/course-sut/index.html?quick');
         await $('#login').setValue('walker@jw.com');
         await $('#password').setValue('password');
@@ -14,7 +14,7 @@ describe('Check app', function () {
         }
     }
 
-    it('Create 1st Manager', async function () {
+    it('Create and check 1st Manager', async function () {
         await $('//*[@href="./formManager.html"]').click();
         await $('#email').setValue('manager1@test.com');
         await $('#password').setValue('password');
@@ -28,9 +28,7 @@ describe('Check app', function () {
         await $('#city').setValue('Alabama');
         await $('#autoComplete_result_0').click();
         await $('//button[starts-with(text(), "Create")]').click();
-    });
 
-    it('Check 1st Manager', async function () {
         let userRow = await $('//*[text()="manager1@test.com"]/..');
         let email = await userRow.$('(//div[@class="tabulator-cell"])[1]').getText();
         if (email !== 'manager1@test.com') {
@@ -78,8 +76,12 @@ describe('Check app', function () {
         }
     });
 
-    it('Create 2st Manager', async function () {
-        await $('//*[@href="./formManager.html"]').click();
+    // it('Check 1st Manager', async function () {
+
+    // });
+
+    it('Create and check 2st Manager', async function () {
+        await $('//a[contains(.,"Create Manager")]').click();
         await $('#email').setValue('manager2@test.com');
         await $('#password').setValue('password2');
         await $('#address1').setValue('1234, Test2 str');
@@ -92,9 +94,7 @@ describe('Check app', function () {
         await $('#city').setValue('Ottawa');
         await $('#autoComplete_result_0').click();
         await $('//button[starts-with(text(), "Create")]').click();
-    });
 
-    it('Check 2st Manager', async function () {
         let userRow = await $('//*[text()="manager2@test.com"]/..');
         let email = await userRow.$('(.//div[@class="tabulator-cell"])[1]').getText();
         if (email !== 'manager2@test.com') {
@@ -142,8 +142,12 @@ describe('Check app', function () {
         }
     });
 
+    // it('Check 2st Manager', async function () {
+
+    // });
+
     it('Create User', async function () {
-        await $('//*[@href="./formUser.html"]').click();
+        await $('//a[contains(.,"Create User")]').click();
         let jsonString = '{"email": "test-user@gmail.com", "password": "password3", "address1": "111 Broadway", "address2": "1-13", "city": "NY", "zip": "77777", "description": "test description"}';
         await fillFormUsingJson(jsonString);
         await $('//button[starts-with(text(), "Create")]').click();

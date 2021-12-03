@@ -9,7 +9,7 @@ describe('Check app', function () {
 
     function waitForText(selector, text, timeout) {
         return browser.waitUntil(
-            async () => (await $(selector).isDisplayed() === true) && (await $(selector).getText() === text),
+            async () => (await $(selector).isDisplayed()) && (await $(selector).getText() === text),
             {
                 timeout: timeout,
                 timeoutMsg: `Expected text to be different after ${timeout} ms`

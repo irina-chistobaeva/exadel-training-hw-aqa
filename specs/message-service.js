@@ -13,55 +13,51 @@ const {
 
 describe('Message Sending', function () {
 
-    before('Start Client PC', function () {
+    beforeEach('Start Client PC', function () {
         startClientPC();
     });
 
-    context('All nodes presented:', function () {
+    context('Proper token and Satellite available:', function () {
         beforeEach('Start Satelite', function () {
             startSatelite();
         });
 
-        it('should send message to Earth without error', function () {
+        it('should send message to Earth => "Success"', function () {
             let earthToken = startEarthServer();
             const response = sendMessage('Hello', 'Earth', earthToken);
             assertResponse(response, 'Success');
+            stopEarthServer();
         });
 
-        it('should send message to Mars without error', function () {
+        it('should send message to Mars => "Success"', function () {
             const marsToken = startMarsServer();
             const response = sendMessage('Hello', 'Mars', marsToken);
             assertResponse(response, 'Success');
+            stopMarsServer();
         });
 
-        afterEach('Stop all nodes', function () {
-            stopMarsServer();
-            stopEarthServer();
+        afterEach('Stop Satelite', function () {
             stopSatelite();
         });
     })
 
-    context('Invalid token present:', function () {
+    context('Invalid token and Satellite available:', function () {
         beforeEach('Start all nodes', function () {
             startSatelite();
             startEarthServer();
             startMarsServer();
         });
 
-        it('should not send message to Earth with invalid token', function () {
+        it('should send message to Earth => "Security Error"', function () {
             const earthToken = 'W1234';
             const response = sendMessage('Hello', 'Earth', earthToken);
-            if (response !== 'Success') {
-                throw new Error('Token is invalid');
-            }
+            assertResponse(response, 'Security Error');
         });
 
-        it('should not send message to Mars with invalid token', function () {
+        it('should send message to Mars => "Security Error"', function () {
             const marsToken = 'W1234';
             const response = sendMessage('Hello', 'Mars', marsToken);
-            if (response !== 'Success') {
-                throw new Error('Token is invalid');
-            }
+            assertResponse(response, 'Security Error');
         });
 
         afterEach('Stop all nodes', function () {
@@ -71,32 +67,39 @@ describe('Message Sending', function () {
         });
     })
 
-    context('Satellite disabled:', function () {
+    context('Proper token and Satellite disabled:', function () {
         beforeEach('Start Mars Server', function () {
             startMarsServer();
         });
 
-        it('should not send message to Mars with valid token but disabled satellite', function () {
+        it('should send message to Mars => "Service is unavailable"', function () {
             const marsToken = startMarsServer();
             const response = sendMessage('Hello', 'Mars', marsToken);
-            if (response !== 'Success') {
-                throw new Error('Satellite is disabled');
-            }
-        });
-
-        it('should not send message to Mars with invalid token and disabled satellite', function () {
-            const marsToken = 'W1234';
-            const response = sendMessage('Hello', 'Mars', marsToken);
-            if (response !== 'Success') {
-                throw new Error('Token is invalid and satellite is disabled');
-            }
+            assertResponse(response, 'Service is unavailable');
         });
 
         afterEach('Stop Mars Server', function () {
             stopMarsServer();
         });
     })
-    after('Stop Client PC', function () {
+
+    context('Invalid token and Satellite disabled:', function () {
+        beforeEach('Start Mars Server', function () {
+            startMarsServer();
+        });
+
+        it('should send message to Mars => "Service is unavailable"', function () {
+            const marsToken = 'W1234';
+            const response = sendMessage('Hello', 'Mars', marsToken);
+            assertResponse(response, 'Service is unavailable');
+        });
+
+        afterEach('Stop Mars Server', function () {
+            stopMarsServer();
+        });
+    })
+
+    afterEach('Stop Client PC', function () {
         stopClientPC();
     });
 })

@@ -2,7 +2,7 @@ describe('Check app', function () {
     before(async function () {
         browser.addCommand('waitForText', async function (text, timeout) {
             return await browser.waitUntil(
-                async () => await this.getText() === text,
+                async () => (await this.isDisplayed() && await this.getText() === text),
                 {
                     timeout: timeout,
                     timeoutMsg: `Expected text to be different after ${timeout} ms`
