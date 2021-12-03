@@ -76,10 +76,6 @@ describe('Check app', function () {
         }
     });
 
-    // it('Check 1st Manager', async function () {
-
-    // });
-
     it('Create and check 2st Manager', async function () {
         await $('//a[contains(.,"Create Manager")]').click();
         await $('#email').setValue('manager2@test.com');
@@ -141,10 +137,6 @@ describe('Check app', function () {
             throw new Error('Manager type is not correct');
         }
     });
-
-    // it('Check 2st Manager', async function () {
-
-    // });
 
     it('Create User', async function () {
         await $('//a[contains(.,"Create User")]').click();
